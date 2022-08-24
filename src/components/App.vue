@@ -22,7 +22,7 @@ import BlocklyPHP from "blockly/php"
 import BlocklyLua from "blockly/lua"
 import BlocklyDART from "blockly/dart"
 
-// const foo = ref();
+const foo = ref();
 // const code = ref();
 const options = {
   media: "node_modules/blockly/media/",
@@ -306,31 +306,27 @@ const options = {
 	  </xml>`,
 };
 
-
+const showCode_js = () => (code.value = BlocklyJS.workspaceToCode(foo.value.workspace));
+const showCode_py = () => (code.value = BlocklyPY.workspaceToCode(foo.value.workspace));
+const showCode_php = () => (code.value = BlocklyPHP.workspaceToCode(foo.value.workspace));
+const showCode_lua = () => (code.value = BlocklyLua.workspaceToCode(foo.value.workspace));
+const showCode_dart = () => (code.value = BlocklyDART.workspaceToCode(foo.value.workspace));
 const context = inject<AppContext>("context");
 if (!context) throw new Error("must call provide('context') before mount App");
 
 interface ws {
-	foo: any;
 	code: any;
 }
 
 const ws: ws = {
-	foo: null,
 	code: "",
 }
 
 const storage = context.createStorage("wser", ws);
 
 const data: any = {
-	foo: ref(storage.state.foo),
-	code: ref(storage.state.code),
+   code: ref(storage.state.code),
 }
-
-const foo = computed<any>({
-  get: () => data.foo.value,
-  set: (foo) => storage.setState({ foo }),
-});
 
 const code = computed<any>({
   get: () => data.code.value,
@@ -339,21 +335,14 @@ const code = computed<any>({
 
 onMounted(() =>
   storage.addStateChangedListener(() => {
-    data.foo.value = storage.state.foo;
-	data.code.value = storage.state.code;
-	// console.log(foo.value);
+    data.code.value = storage.state.code;
   })
 );
 watchEffect(() => {
   console.log("App.vue: code =", code.value);
-  console.log("App.vue: foo =",foo.value);
 });
 
-const showCode_js = () => (code.value = BlocklyJS.workspaceToCode(foo.value.workspace));
-const showCode_py = () => (code.value = BlocklyPY.workspaceToCode(foo.value.workspace));
-const showCode_php = () => (code.value = BlocklyPHP.workspaceToCode(foo.value.workspace));
-const showCode_lua = () => (code.value = BlocklyLua.workspaceToCode(foo.value.workspace));
-const showCode_dart = () => (code.value = BlocklyDART.workspaceToCode(foo.value.workspace));
+
 </script>
 
 <template>
