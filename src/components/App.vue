@@ -305,7 +305,6 @@ const options = {
 		<category name="函数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 	  </xml>`,
 };
-
 const showCode_js = () => (code.value = BlocklyJS.workspaceToCode(foo.value.workspace));
 const showCode_py = () => (code.value = BlocklyPY.workspaceToCode(foo.value.workspace));
 const showCode_php = () => (code.value = BlocklyPHP.workspaceToCode(foo.value.workspace));
@@ -325,7 +324,7 @@ const ws: ws = {
 const storage = context.createStorage("wser", ws);
 
 const data: any = {
-   code: ref(storage.state.code),
+	code: ref(storage.state.code),
 }
 
 const code = computed<any>({
@@ -335,12 +334,13 @@ const code = computed<any>({
 
 onMounted(() =>
   storage.addStateChangedListener(() => {
-    data.code.value = storage.state.code;
+	data.code.value = storage.state.code;
   })
 );
 watchEffect(() => {
   console.log("App.vue: code =", code.value);
 });
+
 
 
 </script>
