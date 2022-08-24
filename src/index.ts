@@ -20,7 +20,7 @@ import App from "./components/App.vue";
  * https://github.com/netless-io/window-manager/blob/master/docs/develop-app.md
  */
 const Counter: NetlessApp = {
-  kind: "Counter",
+  kind: "BLOCKLY",
   setup(context) {
     const box = context.getBox();
     box.mountStyles(styles);
