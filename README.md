@@ -1,3 +1,10 @@
+# 积木式编程
+从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
+
+Blockly一种在网页上运行的图形化编程语言。使用者以拖拽拼图的方式开发出应用程序。不需要任何的代码编写。
+
+
+
 # Netless App Template
 
 [Netless App 文档](https://github.com/netless-io/window-manager/blob/master/docs/develop-app.md)
@@ -18,9 +25,11 @@
 
     请将本目录下的 .env.example 文件复制一份，重命名为 .env 或 .env.local 后，在里面填写必须的白板配置信息。你可以在 [Netless Workshop](https://workshop.netless.link) 申请专用的白板配置。
 
-3.  执行 `npm install` 安装依赖
+3.  执行 `npm install` 安装依赖 
 
-4.  执行 `npm start` 进行本地开发
+4.  执行 `npm install blockly` 安装依赖 
+
+5.  执行 `npm run start` 进行本地开发
 
 ## 提交到社区 App 列表
 
