@@ -1,9 +1,10 @@
 # 积木式编程
-    从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 
-    从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 
-    Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
-    Blockly一种在网页上运行的图形化编程语言。使用者以拖拽拼图的方式开发出应用程序，不需要任何的代码编写。
-    ![image](https://user-images.githubusercontent.com/101512741/186443785-a3103c29-9d5e-481d-bf72-53339f9402ae.png)
+
+从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 
+从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 
+Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
+Blockly一种在网页上运行的图形化编程语言。使用者以拖拽拼图的方式开发出应用程序，不需要任何的代码编写。
+![image](https://user-images.githubusercontent.com/101512741/186443785-a3103c29-9d5e-481d-bf72-53339f9402ae.png)
 
 # 使用教程
 1.  点击右侧工作栏将所需积木块拖入工作区
@@ -28,7 +29,7 @@
 
 ![image](https://user-images.githubusercontent.com/101512741/186446352-0cd1bfd3-9c1f-4ae0-ab79-5abe39110735.png)
 
-
+6.  生成代码的同时同步代码区域，学习者可以通过代码复刻积木，增加对代码间联系的理解。
 
 
 # Netless App Template
