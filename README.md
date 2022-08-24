@@ -2,6 +2,7 @@
 从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
 
 Blockly一种在网页上运行的图形化编程语言。使用者以拖拽拼图的方式开发出应用程序。不需要任何的代码编写。
+![image](https://user-images.githubusercontent.com/101512741/186431143-ba8de972-92bd-4793-808e-1eef63fcbede.png)
 
 
 
