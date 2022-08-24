@@ -1,20 +1,31 @@
 # 积木式编程
-    从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
-
+    从用户的角度来看，Blockly是一种直观，可使的构建代码的方式。 
+    从开发人员的角度来看，Blockly是一个现成的用户界面，用于创建可视语言，从而为用户生成正确的代码。 
+    Blockly可以将块导出为许多编程语言，包括这些流行的选项：JavaScript、Python、PHP、Lua、Dart。
     Blockly一种在网页上运行的图形化编程语言。使用者以拖拽拼图的方式开发出应用程序，不需要任何的代码编写。
     ![image](https://user-images.githubusercontent.com/101512741/186443785-a3103c29-9d5e-481d-bf72-53339f9402ae.png)
 
 # 使用教程
 1.  点击右侧工作栏将所需积木块拖入工作区
-2.  点击左侧代码标志图标查看生成代码
+
+3.  点击左侧代码标志图标查看生成代码
+
 ![image](https://user-images.githubusercontent.com/101512741/186445155-b59ceefe-1a7e-4366-9495-496c5bb987ba.png)
+
 3.  点击变量选项卡，可添加变量
+
 ![image](https://user-images.githubusercontent.com/101512741/186445523-94b099d1-54ad-4388-945f-9e57d4844a90.png)
+
 ![image](https://user-images.githubusercontent.com/101512741/186445444-a3cf4998-9eb8-49e4-84bc-72f18fa45cde.png)
+
 4.  点击函数选项卡，可建立函数
+
 ![image](https://user-images.githubusercontent.com/101512741/186446125-ec1ad572-1347-4c7c-b230-d26d15da9950.png)
+
 ![image](https://user-images.githubusercontent.com/101512741/186445976-99972902-ffa6-4d3c-9742-5554f5c01c9e.png)
+
 5.  点击回收站图标，可查看历史代码积木
+
 ![image](https://user-images.githubusercontent.com/101512741/186446352-0cd1bfd3-9c1f-4ae0-ab79-5abe39110735.png)
 
 
