@@ -15,6 +15,7 @@ import type { AppContext } from "@netless/window-manager";
 import { computed, inject, onMounted, ref, watchEffect } from "vue";
 import BlocklyComponent from "./components/BlocklyComponent.vue";
 import "./blocks/stocks";
+import Blockly from "blockly";
 
 import BlocklyJS from "blockly/javascript";
 import BlocklyPY from "blockly/python"
@@ -23,7 +24,6 @@ import BlocklyLua from "blockly/lua"
 import BlocklyDART from "blockly/dart"
 
 const foo = ref();
-// const code = ref();
 const options = {
   media: "node_modules/blockly/media/",
   grid: {
@@ -305,43 +305,81 @@ const options = {
 		<category name="函数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 	  </xml>`,
 };
-const showCode_js = () => (code.value = BlocklyJS.workspaceToCode(foo.value.workspace));
-const showCode_py = () => (code.value = BlocklyPY.workspaceToCode(foo.value.workspace));
-const showCode_php = () => (code.value = BlocklyPHP.workspaceToCode(foo.value.workspace));
-const showCode_lua = () => (code.value = BlocklyLua.workspaceToCode(foo.value.workspace));
-const showCode_dart = () => (code.value = BlocklyDART.workspaceToCode(foo.value.workspace));
+
 const context = inject<AppContext>("context");
 if (!context) throw new Error("must call provide('context') before mount App");
 
 interface ws {
 	code: any;
+	xml: any;
 }
 
 const ws: ws = {
 	code: "",
+	xml: ``,
 }
 
 const storage = context.createStorage("wser", ws);
 
 const data: any = {
 	code: ref(storage.state.code),
+	xml: ref(storage.state.xml),
 }
+
 
 const code = computed<any>({
   get: () => data.code.value,
   set: (code) => storage.setState({ code }),
 });
+const xml = computed<any>({
+  get: () => data.xml.value,
+  set: (xml) => storage.setState({ xml }),
+});
+
 
 onMounted(() =>
   storage.addStateChangedListener(() => {
 	data.code.value = storage.state.code;
+	data.xml.value = storage.state.xml;
+	if(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(foo.value.workspace)) != data.xml.value){
+		Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(data.xml.value), foo.value.workspace);
+	}
   })
 );
 watchEffect(() => {
   console.log("App.vue: code =", code.value);
+  console.log("App.vue: xml =", xml.value);
 });
 
+const showCode_js = () => {
+	xml.value = `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`;
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml.value), foo.value.workspace);
+	code.value = BlocklyJS.workspaceToCode(foo.value.workspace);
+};
+const showCode_py = () => {
+	xml.value = `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`;
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml.value), foo.value.workspace);
+	code.value = BlocklyPY.workspaceToCode(foo.value.workspace)
+};
+const showCode_php = () => {
+	xml.value = `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`;
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml.value), foo.value.workspace);
+	code.value = BlocklyPHP.workspaceToCode(foo.value.workspace);
+};
+const showCode_lua = () => {
+	xml.value = `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`;
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml.value), foo.value.workspace);
+	code.value = BlocklyLua.workspaceToCode(foo.value.workspace);
+};
+const showCode_dart = () => {
+	xml.value = `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`;
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml.value), foo.value.workspace);
+	code.value = BlocklyDART.workspaceToCode(foo.value.workspace);
+};
 
+const showCode_sync = () => {
+	xml.value = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(foo.value.workspace));
+};
 
 </script>
 
@@ -364,6 +402,9 @@ watchEffect(() => {
 	  </button>
 	  <button style="border: 0;background: 0%;">
 	  		  <img src="./assets/dart.png" height="25" width="25" v-on:click="showCode_dart()" title="生成Dart代码"/>
+	  </button>
+	  <button style="border: 0;background: 0%;" id="xml">
+	  		  <img src="./assets/data.png" height="25" width="25" v-on:click="showCode_sync()" title="广播工作区积木块"/>
 	  </button>
       <pre v-html="code"></pre>
     </p>
@@ -444,5 +485,10 @@ button.notext {
 button {
   padding: 1px 10px;
   margin: 1px 5px;
+}
+#xml {
+	position:fixed;
+	bottom:5px;
+	right:0px;
 }
 </style>
