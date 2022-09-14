@@ -16,13 +16,13 @@ import { computed, inject, onMounted, ref, watchEffect } from "vue";
 import BlocklyComponent from "./components/BlocklyComponent.vue";
 import "./blocks/stocks";
 import Blockly from "blockly";
-
+import * as Ch from 'blockly/msg/zh-hans';
 import BlocklyJS from "blockly/javascript";
 import BlocklyPY from "blockly/python"
 import BlocklyPHP from "blockly/php"
 import BlocklyLua from "blockly/lua"
 import BlocklyDART from "blockly/dart"
-
+Blockly.setLocale(Ch);
 const foo = ref();
 const options = {
   media: "node_modules/blockly/media/",
@@ -304,6 +304,14 @@ const options = {
 		<category name="变量" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
 		<category name="函数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 	  </xml>`,
+  zoom: {
+	  controls: true,
+      wheel: true,
+      startScale: 1.0,
+      maxScale: 3,
+      minScale: 0.3,
+      scaleSpeed: 1.2},
+  trashcan: true,
 };
 
 const context = inject<AppContext>("context");
@@ -377,6 +385,17 @@ const showCode_dart = () => {
 	code.value = BlocklyDART.workspaceToCode(foo.value.workspace);
 };
 
+const run_js = () => {
+	window.LoopTrap = 1000;
+	Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+	var run_code = BlocklyJS.workspaceToCode(foo.value.workspace);
+	try {
+	  eval(run_code);
+	} catch (e) {
+	  alert(e);
+	}
+};
+
 const showCode_sync = () => {
 	xml.value = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(foo.value.workspace));
 };
@@ -386,27 +405,34 @@ const showCode_sync = () => {
 <template>
   <div id="app">
     <BlocklyComponent id="blockly" :options="options" ref="foo"></BlocklyComponent>
-    <p id="code">
+    <p id="code" style="position: absolute;">
       <!-- <button v-on:click="showCode()" ></button> -->
-	  <button style="border: 0;background: 0%;">
-		  <img src="./assets/js.png" height="25" width="25" v-on:click="showCode_js()" title="生成JavaScript代码"/>
-	  </button>
-	  <button style="border: 0;background: 0%;">
-	  		  <img src="./assets/python3.png" height="25" width="25" v-on:click="showCode_py()" title="生成Python代码"/>
-	  </button>
-	  <button style="border: 0;background: 0%;">
-	  		  <img src="./assets/php.png" height="25" width="25" v-on:click="showCode_php()" title="生成php代码"/>
-	  </button>
-	  <button style="border: 0;background: 0%;">
-	  		  <img src="./assets/lua.png" height="25" width="25" v-on:click="showCode_lua()" title="生成Lua代码"/>
-	  </button>
-	  <button style="border: 0;background: 0%;">
-	  		  <img src="./assets/dart.png" height="25" width="25" v-on:click="showCode_dart()" title="生成Dart代码"/>
-	  </button>
-	  <button style="border: 0;background: 0%;" id="xml">
-	  		  <img src="./assets/data.png" height="25" width="25" v-on:click="showCode_sync()" title="广播工作区积木块"/>
-	  </button>
-      <pre v-html="code"></pre>
+	  <div style="position: absolute;left: 0;top: 5px;">
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/js.png" height="25" width="25" v-on:click="showCode_js()" title="生成JavaScript代码"/>
+		  </button>
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/python3.png" height="25" width="25" v-on:click="showCode_py()" title="生成Python代码"/>
+		  </button>
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/php.png" height="25" width="25" v-on:click="showCode_php()" title="生成php代码"/>
+		  </button>
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/lua.png" height="25" width="25" v-on:click="showCode_lua()" title="生成Lua代码"/>
+		  </button>
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/dart.png" height="25" width="25" v-on:click="showCode_dart()" title="生成Dart代码"/>
+		  </button>
+	  </div>
+	  <div style="position: absolute;right: 0;bottom: 5px;">
+		  <button style="border: 0;background: 0%;">
+		  		  <img src="./assets/run_js.png" height="25" width="25" v-on:click="run_js()" title="运行代码"/>
+		  </button>
+		  <button style="border: 0;background: 0%;" id="xml">
+		  		  <img src="./assets/data.png" height="25" width="25" v-on:click="showCode_sync()" title="广播工作区积木块"/>
+		  </button>
+	  </div>
+      <pre v-html="code" style="position: absolute;left: 15px;top: 40px;"></pre>
     </p>
   </div>
 </template>
@@ -486,9 +512,6 @@ button {
   padding: 1px 10px;
   margin: 1px 5px;
 }
-#xml {
-	position:fixed;
-	bottom:5px;
-	right:0px;
-}
+
 </style>
+
